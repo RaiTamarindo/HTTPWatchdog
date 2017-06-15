@@ -2,8 +2,10 @@
   "name": "http-watchdog",
   "version": "1.0.0",
   "description": "An availability monitoring application.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "debug": "node debug server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/raitamarindo/HTTPWatchdog/issues"
   },
-  "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme"
+  "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme",
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
 }

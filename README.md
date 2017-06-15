@@ -21,7 +21,7 @@ npm start
 
 ## About
 
-This is a Node application that periodically makes HTTP requests for each website in a list.
+This is a Node application that periodically makes HTTP requests for each website in a list. Its architecture consists of a Node thread that serves the application, another that does the monitoring and a web application that shows the monitoring data.
 
 ## `//TODO` list
 
