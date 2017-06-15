@@ -1,5 +1,5 @@
 # HTTP Watchdog
-A website availability monitoring application
+A website availability monitoring application.
 
 ## Quick start
 
