@@ -3,15 +3,16 @@ This software is an availability monitoring application.
 
 ## Quick start
 
-Make sure that you have installed [Node and NPM](https://nodejs.org/en/) in your machine.
+1. Make sure that you have installed [Node and NPM](https://nodejs.org/en/) in your machine.
 
-Install
+2. Install
 
 ```
 npm install
 ```
 
-Then run it
+3. Run it
 
 ```
 npm start
+```
