@@ -1,0 +1,24 @@
+{
+  "name": "http-watchdog",
+  "version": "1.0.0",
+  "description": "An availability monitoring application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raitamarindo/HTTPWatchdog.git"
+  },
+  "keywords": [
+    "HTTP",
+    "monitoring",
+    "availability"
+  ],
+  "author": "Raí Tamarindo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raitamarindo/HTTPWatchdog/issues"
+  },
+  "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme"
+}
