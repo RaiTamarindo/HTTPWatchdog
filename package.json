@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme",
   "dependencies": {
-    "child_process": "^1.0.2"
+    "child_process": "^1.0.2",
+    "mongodb": "^2.2.28"
   }
 }
