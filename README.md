@@ -4,22 +4,30 @@ A website availability monitoring application.
 ## Quick start
 
 ### 1. Make sure that you have installed in your machine:
- * [Node and NPM](https://nodejs.org/en/).
- * [MongoDB](https://docs.mongodb.com/manual/installation/)
+ * [Node and NPM](https://nodejs.org/en/)
+ * [MongoDB](https://docs.mongodb.com/manual/installation/) (check if it's already running)
 
-### 2. Install
+### 2. Clone or download this project
+
+### 3. Enter the folder
+
+```
+cd HTTPWatchdog
+```
+
+### 4. Install
 
 ```
 npm install
 ```
 
-### 3. Run it
+### 5. Run it
 
 ```
 npm start
 ```
 
-### 4. Open [http://localhost:3000](http://localhost:3000) in your browser
+### 6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## About
 

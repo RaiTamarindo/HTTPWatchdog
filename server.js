@@ -1,4 +1,5 @@
-var childProcess = require('child_process');
+var childProcess = require('child_process'),
+    mongoClient = require('mongodb').MongoClient;
 
 function runWorker()
 {
@@ -15,5 +16,23 @@ function runWorker()
     });
 }
 
+function setupServer()
+{
+    var url = 'mongodb://localhost:27017/http-watchdog';
+
+    mongoClient.connect(url, function(err, db)
+    {
+        console.log("Connected successfully to server");
+
+        db.close();
+    });
+}
+
+console.log('HTTP Watchdog');
+console.log('A website availability monitoring application.');
+console.log('');
+console.log('Running server...');
+
+setupServer();
 runWorker();
 
