@@ -25,6 +25,7 @@
   "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme",
   "dependencies": {
     "child_process": "^1.0.2",
+    "express": "^4.15.3",
     "mongodb": "^2.2.28"
   }
 }
