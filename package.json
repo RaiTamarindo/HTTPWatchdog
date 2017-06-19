@@ -4,8 +4,8 @@
   "description": "An availability monitoring application.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "debug": "node debug server.js",
+    "start": "cross-env NODE_ENV=prod && webpack && node server.js",
+    "debug": "cross-env NODE_ENV=dev && webpack -p && node debug server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,8 +24,28 @@
   },
   "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme",
   "dependencies": {
+    "angular": "^1.6.4",
     "child_process": "^1.0.2",
     "express": "^4.15.3",
-    "mongodb": "^2.2.28"
+    "mongodb": "^2.2.28",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.28.0",
+    "node-sass": "^4.5.3",
+    "path": "^0.12.7",
+    "postcss-loader": "^2.0.6",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.6",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^2.6.1",
+    "webpack-merge": "^4.1.0"
   }
 }

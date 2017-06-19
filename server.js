@@ -27,6 +27,9 @@ worker.on('message', function(msg)
     // TODO
 });
 
+// Webapp
+app.use(express.static(__dirname + '/public'));
+
 // REST API
 routes(app);
 
