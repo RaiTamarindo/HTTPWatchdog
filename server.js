@@ -24,7 +24,14 @@ worker.on('exit', function(code)
 
 worker.on('message', function(msg)
 {
-    console.log('Worker: ' + msg);
+    if(msg.text)
+    {
+        console.log('Worker: ' + msg.text);
+    }
+    if(msg.data)
+    {
+        //TODO: Inserts new stats on database and emit socket event
+    }
 });
 
 // Webapp

@@ -17,7 +17,7 @@ module.exports =
 
     insert: function(resources, done)
     {
-        genericModel(model).inser(resources, done)
+        genericModel(model).insert(resources, done)
     },
 
     modify: function(id, resource, done)
