@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('../db'),
+var db = require('../db.js'),
     ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(model)

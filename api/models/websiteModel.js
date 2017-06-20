@@ -1,6 +1,6 @@
 'use strict';
 
-var genericModel = require('genericModel'),
+var genericModel = require('./genericModel.js'),
     model = 'websites';
 
 module.exports =

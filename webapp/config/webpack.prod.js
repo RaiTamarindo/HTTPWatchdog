@@ -20,11 +20,11 @@ module.exports = webpackMerge(commonConfig,
     },
     module:
     {
-        loaders:
+        rules:
         [
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract(
+                use: ExtractTextPlugin.extract(
                 {
                     fallback: 'style-loader',
                     use:
@@ -32,17 +32,11 @@ module.exports = webpackMerge(commonConfig,
                         'css-loader',
                         'postcss-loader',
                         'sass-loader?config=sassConfig'
-                    ]
+                    ],
+                    publicPath: '../../public'
                 })
             }
         ]
-    },
-    sassConfig:
-    {
-        includePaths:
-        [
-            path.resolve(__dirname, '..', 'src/scss')
-        ],
     },
     plugins:
     [

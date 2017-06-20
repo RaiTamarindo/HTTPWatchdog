@@ -6,7 +6,7 @@ module.exports =
 {
     entry:
     {
-        app: './webapp/src/app.js'
+        app: './webapp/src/app/app.js'
     },
     output:
     {

@@ -1,6 +1,6 @@
 'use strict';
 
-var websiteModel = require('../models/websiteModel');
+var websiteModel = require('../models/websiteModel.js');
 
 module.exports =
 {

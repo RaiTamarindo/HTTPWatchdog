@@ -3,7 +3,7 @@ var childProcess = require('child_process'),
     express = require('express'),
     app = express(),
     port = process.env.PORT || 3000,
-    routes = require('api/routes');
+    routes = require('./api/routes.js');
 
 
 console.log('HTTP Watchdog');
@@ -24,7 +24,7 @@ worker.on('exit', function(code)
 
 worker.on('message', function(msg)
 {
-    // TODO
+    console.log('Worker: ' + msg);
 });
 
 // Webapp
