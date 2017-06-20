@@ -35,6 +35,9 @@ This is a Node application that periodically makes HTTP requests for each websit
 
 ## `//TODO` list
 
-- [ ] Worker thread to monitor websites.
+- [X] Worker thread to monitor websites.
 - [ ] Server thread to serve the application and manage the list of websites for monitoring.
 - [ ] Webapp to provide a graphical user interface.
+- [ ] Change sample time and fast time (100 ms) parameters through the app.
+- [ ] Add another HTTP methods.
+- [ ] Set HTTP headers.

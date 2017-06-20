@@ -19,7 +19,7 @@ var connect = function(done)
         {
             if(err)
             {
-                done(err);
+                return done(err);
             }
             else
             {
@@ -50,9 +50,6 @@ module.exports =
 
     get: function()
     {
-        return connect(function(err)
-        {
-            return state.db;
-        });
+        return state.db;
     }
 };

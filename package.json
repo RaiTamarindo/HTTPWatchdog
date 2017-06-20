@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=prod && webpack -p && node server.js",
-    "debug": "cross-env NODE_ENV=dev && webpack && node debug server.js",
+    "debug": "cross-env NODE_ENV=dev && webpack && node --debug=9200 --inspect server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,8 +25,10 @@
   "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme",
   "dependencies": {
     "angular": "^1.6.4",
+    "body-parser": "^1.17.2",
     "child_process": "^1.0.2",
     "express": "^4.15.3",
+    "http": "0.0.0",
     "mongodb": "^2.2.28",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3"
