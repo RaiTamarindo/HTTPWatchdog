@@ -1,7 +1,15 @@
 'use strict';
 
 var genericModel = require('./genericModel.js'),
+    util = require('util'),
     model = 'websites';
+
+function prepareToInsert(website)
+{
+    website.successfulResponses = 0;
+    website.fastResponses = 0;
+    website.totalRequests = 0;
+}
 
 module.exports =
 {
@@ -17,6 +25,17 @@ module.exports =
 
     insert: function(resources, done)
     {
+        if(util.isArray(resources))
+        {
+            for(var i = 0;i < resources.length;i++)
+            {
+                prepareToInsert(resources[i]);
+            }
+        }
+        else if(util.isObject(resources))
+        {
+            prepareToInsert(resources);
+        }
         genericModel(model).insert(resources, done)
     },
 

@@ -28,7 +28,7 @@ module.exports = function(model)
             {
                 var collection = db.get().collection(model);
 
-                connection.findOne({"_id": ObjectID(id)}, done);
+                collection.findOne({"_id": ObjectID(id)}, done);
             }
         });
     };
