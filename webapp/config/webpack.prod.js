@@ -24,17 +24,12 @@ module.exports = webpackMerge(commonConfig,
         [
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract(
-                {
-                    fallback: 'style-loader',
-                    use:
-                    [
-                        'css-loader',
-                        'postcss-loader',
-                        'sass-loader?config=sassConfig'
-                    ],
-                    publicPath: '../../public'
-                })
+                use:
+                [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     },
@@ -55,6 +50,6 @@ module.exports = webpackMerge(commonConfig,
             },
             comments: false
         }),
-        new ExtractTextPlugin("styles.min.css")
+        //new ExtractTextPlugin("styles.min.css")
     ]
 });

@@ -12,9 +12,8 @@ module.exports = webpackMerge(commonConfig,
                 use:
                 [
                     'style-loader',
-                    'css-loader?sourceMap',
-                    'postcss-loader',
-                    'sass-loader?config=sassLoader'
+                    'css-loader',
+                    'sass-loader'
                 ]
             }
         ]
