@@ -25,6 +25,9 @@
   "homepage": "https://github.com/raitamarindo/HTTPWatchdog#readme",
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-aria": "^1.6.4",
+    "angular-material": "^1.1.4",
     "body-parser": "^1.17.2",
     "child_process": "^1.0.2",
     "express": "^4.15.3",
