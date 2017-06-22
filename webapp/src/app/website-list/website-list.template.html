@@ -1,32 +1,58 @@
-<div ng-cloak>
-    <md-content class="md-padding" layout="column">
-        <div ng-repeat="website in $ctrl.websites" flex="50">
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">
-                            <md-input-container>
-                                <label>Website</label>
-                                <input ng-model="website.url">
-                            </md-input-container>
-                        </span>
-                        <span class="md-subhead">
-                            <md-input-container>
-                                <label>Successful resp. SLO</label>
-                                <input ng-model="website.successfulResponsesSLO" type="number">
-                            </md-input-container>
-                        </span>
-                        <span class="md-subhead">
-                            <md-input-container>
-                                <label>Fast resp. SLO</label>
-                                <input ng-model="website.fastResponsesSLO" type="number">
-                            </md-input-container>
-                        </span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <h1>{{$ctrl.getSuccessfulResponsesSLI(website)}}%</h1>
-                        <h1>{{$ctrl.getFastResponsesSLI(website)}}%</h1>
-                    </md-card-title-media>
-                </md-card-title>
-    </md-content>
-</div>
+<md-grid-list md-cols-xl="4" md-cols-lg="3" md-cols-sm="2" md-cols-xs="1" md-row-height="350px" md-gutter="10px">
+    <md-grid-tile>
+        <div class="form-wrapper md-whiteframe-1dp">
+            <form name="addWebsiteForm" class="md-inline-form" ng-submit="$ctrl.addWebsite(newWebsite)" novalidate>
+                <div class="form-title">New website URL</div>
+                
+                <md-input-container class="md-block">
+                    <label>URL</label>
+                    <input ng-model="newWebsite.url" ng-pattern="/(http|https)://[\w-]+(\.[\w-]+)*([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/" required>
+                </md-input-container>
+
+                <div layout="column" layout-gt-sm="row">
+
+                    <md-input-container flex>
+                        <label>% Success SLO</label>
+                        <input ng-model="newWebsite.successfulResponsesSLO" type="number" required>
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>% Fast SLO</label>
+                        <input ng-model="newWebsite.fastResponsesSLO" type="number" required>
+                    </md-input-container>
+
+                </div>
+
+                <md-button type="submit" class="md-raised md-primary" aria-label="Add"
+                               ng-disabled="addWebsiteForm.$invalid || addWebsiteForm.$pristine">
+                        Add
+                </md-button>
+            </form>
+        </div>
+    </md-grid-tile>
+    <md-grid-tile ng-repeat="website in $ctrl.websites">
+        <div class="form-wrapper md-whiteframe-1dp">
+            <form class="md-inline-form" novalidate>
+                <md-input-container class="md-block">
+                    <input ng-model="website.url">
+                </md-input-container>
+
+                <div layout="column" layout-gt-sm="row">
+
+                    <md-input-container flex>
+                        <label>Successful response SLO</label>
+                        <input ng-model="website.successfulResponsesSLO" type="number">
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Fast response SLO</label>
+                        <input ng-model="website.fastResponsesSLO" type="number">
+                    </md-input-container>
+
+                </div>
+            </form>
+            <h1>{{$ctrl.getSuccessfulResponsesSLI(website)}}%</h1>
+            <h1>{{$ctrl.getFastResponsesSLI(website)}}%</h1>
+        </div>
+    </md-grid-tile>
+</md-grid-list>

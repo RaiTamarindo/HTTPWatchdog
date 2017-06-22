@@ -1,8 +1,8 @@
 'use strict';
 
-var injectParams = ['websiteDataService'];
+var injectParams = ['$mdToast','websiteDataService'];
 
-var WebsiteListController = function(websiteDataService)
+var WebsiteListController = function($mdToast, websiteDataService)
 {
     var vm  = this;
 
@@ -25,6 +25,17 @@ var WebsiteListController = function(websiteDataService)
     vm.getFastResponsesSLI = function(website)
     {
         return Math.round(website.fastResponses * 100 / website.totalRequests) / 10;
+    };
+
+    vm.addWebsite = function(website)
+    {
+        websiteDataService.create(website)
+            .then(function(websites)
+            {
+                var website = websites[0];
+                vm.websites.unshift(website);
+                $mdToast.show($mdToast.simple().textContent('Website url added!'));
+            });
     };
 };
 

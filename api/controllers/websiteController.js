@@ -40,7 +40,7 @@ module.exports =
                         .json(
                         {
                             message: 'Website created!',
-                            data: result
+                            data: result.ops
                         });
                 }
                 else
@@ -103,7 +103,7 @@ module.exports =
                         .json(
                         {
                             message: 'Website updated!',
-                            data: result
+                            data: result.ops
                         });
                 }
                 else

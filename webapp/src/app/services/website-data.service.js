@@ -32,7 +32,7 @@ var WebsiteDataFactory = function($q, $http)
     {
         var deferred = $q.defer();
 
-        interceptHTTPPromise($http.get(baseUrl + '/' + id.toString()));
+        interceptHTTPPromise($http.get(baseUrl + '/' + id.toString()), deferred);
 
         return deferred.promise;
     };
@@ -41,7 +41,7 @@ var WebsiteDataFactory = function($q, $http)
     {
         var deferred = $q.defer();
 
-        interceptHTTPPromise($http.post(baseUrl, website));
+        interceptHTTPPromise($http.post(baseUrl, website), deferred);
 
         return deferred.promise;
     };
@@ -50,7 +50,7 @@ var WebsiteDataFactory = function($q, $http)
     {
         var deferred = $q.defer();
 
-        interceptHTTPPromise($http.put(baseUrl + website.id.toString(), website));
+        interceptHTTPPromise($http.put(baseUrl + website.id.toString(), website), deferred);
 
         return deferred.promise;
     };
@@ -59,7 +59,7 @@ var WebsiteDataFactory = function($q, $http)
     {
         var deferred = $q.defer();
 
-        interceptHTTPPromise($http.delete(baseUrl + id.toString()));
+        interceptHTTPPromise($http.delete(baseUrl + id.toString()), deferred);
 
         return deferred.promise;
     };
