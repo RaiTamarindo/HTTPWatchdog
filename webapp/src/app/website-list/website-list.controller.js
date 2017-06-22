@@ -19,12 +19,22 @@ var WebsiteListController = function($mdToast, websiteDataService)
 
     vm.getSuccessfulResponsesSLI = function(website)
     {
-        return Math.round(website.successfulResponses * 1000 / website.totalRequests) / 10;
+        if(website.successfulResponses && website.totalRequests)
+        {
+            return Math.round(website.successfulResponses * 1000 / website.totalRequests) / 10;
+        }
+
+        return '--';
     };
 
     vm.getFastResponsesSLI = function(website)
     {
-        return Math.round(website.fastResponses * 100 / website.totalRequests) / 10;
+        if(website.fastResponses && website.totalRequests)
+        {
+            return Math.round(website.fastResponses * 100 / website.totalRequests) / 10;
+        }
+
+        return '--';
     };
 
     vm.addWebsite = function(website)
