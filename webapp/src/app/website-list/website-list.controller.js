@@ -31,7 +31,7 @@ var WebsiteListController = function($mdToast, websiteDataService)
     {
         if(website.fastResponses && website.totalRequests)
         {
-            return Math.round(website.fastResponses * 100 / website.totalRequests) / 10;
+            return Math.round(website.fastResponses * 1000 / website.totalRequests) / 10;
         }
 
         return '--';
