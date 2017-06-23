@@ -15,7 +15,14 @@ var WebsiteDataFactory = function($q, $http)
                 deferred.resolve(result.data.data);
             }, function(reason)
             {
-                deferred.reject(reason);
+                if(reason.data)
+                {
+                    deferred.reject(reason.data.message);
+                }
+                else
+                {
+                    deferred.reject('Please, verify your connection.');
+                }
             });
     };
 

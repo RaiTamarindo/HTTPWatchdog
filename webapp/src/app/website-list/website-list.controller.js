@@ -83,6 +83,9 @@ var WebsiteListController = function($mdToast, websiteDataService)
                 var website = websites[0];
                 addWebsite(website);
                 $mdToast.show($mdToast.simple().textContent('Website url added!'));
+            }, function(reason)
+            {
+                $mdToast.show($mdToast.simple().textContent('Error to add website. ' + reason));
             });
     };
 
@@ -92,6 +95,11 @@ var WebsiteListController = function($mdToast, websiteDataService)
     };
 
     vm.removeWebsite = function(website)
+    {
+        //TODO
+    };
+
+    vm.resetMeasurements = function(website)
     {
         //TODO
     };
