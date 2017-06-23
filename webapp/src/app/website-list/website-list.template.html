@@ -1,12 +1,13 @@
-<md-grid-list md-cols-xl="4" md-cols-lg="3" md-cols-sm="2" md-cols-xs="1" md-row-height="350px" md-gutter="10px">
+<md-grid-list md-cols-xl="4" md-cols-lg="3" md-cols-sm="2" md-cols-xs="1" md-row-height="400px" md-gutter="10px">
     <md-grid-tile>
         <div class="form-wrapper md-whiteframe-1dp">
             <form name="addWebsiteForm" class="md-inline-form" ng-submit="$ctrl.addWebsite(newWebsite)" novalidate>
                 <div class="form-title">New website URL</div>
-                
+
                 <md-input-container class="md-block">
                     <label>URL</label>
-                    <input ng-model="newWebsite.url" ng-pattern="/(http|https)://[\w-]+(\.[\w-]+)*([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/" required>
+                    <input ng-model="newWebsite.url" ng-pattern="/(http|https)://[\w-]+(\.[\w-]+)*([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/"
+                        required>
                 </md-input-container>
 
                 <div layout="column" layout-gt-sm="row">
@@ -23,36 +24,79 @@
 
                 </div>
 
-                <md-button type="submit" class="md-raised md-primary" aria-label="Add"
-                               ng-disabled="addWebsiteForm.$invalid || addWebsiteForm.$pristine">
-                        Add
+                <md-button type="submit" class="md-raised md-primary" aria-label="Add" ng-disabled="addWebsiteForm.$invalid || addWebsiteForm.$pristine">
+                    Add
                 </md-button>
             </form>
         </div>
     </md-grid-tile>
     <md-grid-tile ng-repeat="website in $ctrl.websites">
-        <div class="form-wrapper md-whiteframe-1dp">
-            <form class="md-inline-form" novalidate>
-                <md-input-container class="md-block">
-                    <input ng-model="website.url">
-                </md-input-container>
+        
+        <ms-widget layout="column" flex="100">
 
-                <div layout="column" layout-gt-sm="row">
+            <ms-widget-front class="white-bg">
 
-                    <md-input-container flex>
-                        <label>Successful response SLO</label>
-                        <input ng-model="website.successfulResponsesSLO" type="number">
-                    </md-input-container>
+                <div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">
+                    
+                    <div layout="row" layout-align="start center">
+                        <md-icon class="m-0 mr-8" md-font-icon="icon-server-network"></md-icon>
+                        <div class="h3">{{website.url}}</div>
+                    </div>
 
-                    <md-input-container>
-                        <label>Fast response SLO</label>
-                        <input ng-model="website.fastResponsesSLO" type="number">
-                    </md-input-container>
+                    <md-menu>
+                        
+                        <md-button class="md-icon-button" ng-click="$mdOpenMenu()" aria-label="more">
+                            <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                        </md-button>
+
+                        <md-menu-content width="3">
+
+                            <md-menu-item>
+                                <md-button ng-click="$ctrl.editWebsite(website)" aria-label="Edit website">
+                                    Edit
+                                </md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                                <md-button ng-click="$ctrl.removeWebsite(website)" aria-label="Remove website">
+                                    Remove
+                                </md-button>
+                            </md-menu-item>
+
+                        </md-menu-content>
+
+                    </md-menu>
 
                 </div>
-            </form>
-            <h1>{{$ctrl.getSuccessfulResponsesSLI(website)}}%</h1>
-            <h1>{{$ctrl.getFastResponsesSLI(website)}}%</h1>
-        </div>
+
+                <!--div class="ph-8" layout="row" layout-align="space-between center"-->
+                    
+                    <div class="pt-8 pb-32" layout="column" layout-align="center center">
+                        <div class="font-size-72 line-height-72"
+                            ng-class="{'light-blue-fg': $ctrl.isSuccessfulSLIOK(website), 'red-fg': !$ctrl.isSuccessfulSLIOK(website)}">
+                            {{$ctrl.getSuccessfulResponsesSLI(website)}}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">SUCCESSFUL</div>
+                    </div>
+                    
+                    <div class="pt-8 pb-32" layout="column" layout-align="center center">
+                        <div class="font-size-72 line-height-72"
+                            ng-class="{'light-blue-fg': isFastSLIOK(website), 'red-fg': !isFastSLIOK(website)}">
+                            {{$ctrl.getFastResponsesSLI(website)}}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">FAST</div>
+                    </div>
+                
+                <!--div-->
+
+                <div class="p-16 grey-50-bg border-top" layout="row" layout-align="start center">
+                    <span class="h4 secondary-text text-truncate">Total requests:</span>
+                    <span class="h4 ml-8">{{website.totalRequests}}</span>
+                </div>
+
+            </ms-widget-front>
+
+        </ms-widget>
+
     </md-grid-tile>
 </md-grid-list>
