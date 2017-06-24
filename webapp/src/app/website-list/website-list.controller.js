@@ -2,9 +2,9 @@
 
 var websiteFormComponent = require('../website-form/website-form.component');
 
-var injectParams = ['$mdDialog', '$document','websiteDataService'];
+var injectParams = ['$mdDialog', '$mdToast', '$document','websiteDataService'];
 
-var WebsiteListController = function($mdDialog, $document, websiteDataService)
+var WebsiteListController = function($mdDialog, $mdToast, $document, websiteDataService)
 {
     var vm  = this;
 
@@ -104,14 +104,56 @@ var WebsiteListController = function($mdDialog, $document, websiteDataService)
 
     vm.addWebsite = addWebsite;
 
-    vm.removeWebsite = function(website)
+    vm.removeWebsite = function(website, $event)
     {
-        //TODO
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete this website URL?')
+            .textContent('All measurement data will be lost.')
+            .ariaLabel('Remove website')
+            .targetEvent($event)
+            .clickOutsideToClose(true)
+            .parent($document.body)
+            .ok('Yes')
+            .cancel('No');
+            
+        $mdDialog.show(confirm)
+            .then(function()
+            {
+                websiteDataService.delete(website)
+                    .then(function()
+                    {
+                        for(var i = 0;i < vm.websites.length;i++)
+                        {
+                            if(website._id == vm.websites[i]._id)
+                            {
+                                vm.websites.splice(i, 1);
+                                break;
+                            }
+                        }
+                        $mdToast.show($mdToast.simple().textContent('Website url removed!'));
+                    });
+            }, function()
+            {
+                $mdDialog.hide();
+            });
     };
 
     vm.resetMeasurements = function(website)
     {
-        //TODO
+        website.successfulResponses = 0;
+        website.fastResponses = 0;
+        website.totalRequests = 0;
+        delete website.successfulResponsesSLI;
+        delete website.fastResponsesSLI;
+        delete website.lastResponseDate;
+        delete website.lastResponseTime;
+        delete website.lastStatusCode;
+
+        websiteDataService.update(website)
+            .then(function()
+            {
+                $mdToast.show($mdToast.simple().textContent('Website url reseted!'));
+            });
     };
 };
 

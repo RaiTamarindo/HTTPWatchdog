@@ -123,7 +123,6 @@ module.exports =
         websiteModel
             .remove(id, function(err)
             {
-                console.log('DELETE: ' + err);
                 if(!err)
                 {
                     res.status(200)

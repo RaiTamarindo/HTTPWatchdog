@@ -60,7 +60,7 @@ module.exports = function(model)
         });
     };
 
-    genericModel.remove = function(id, resource, done)
+    genericModel.remove = function(id, done)
     {
         db.connect(function(err)
         {

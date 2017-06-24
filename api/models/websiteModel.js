@@ -44,8 +44,8 @@ module.exports =
         genericModel(model).modify(id, resource, done)
     },
 
-    remove: function(id, resource, done)
+    remove: function(id, done)
     {
-        genericModel(model).remove(id, resource, done)
+        genericModel(model).remove(id, done)
     }
 };

@@ -43,7 +43,7 @@ The web application is a SPA (single-page application) developed with AngularJS,
 
 - [X] Worker process to monitor websites.
 - [X] Server process to serve the application and manage the list of websites for monitoring.
-- [ ] Webapp to provide a graphical user interface.
+- [X] Webapp to provide a graphical user interface.
 - [ ] Real-time updates with websocket.
 - [ ] Change sample time and fast time (100 ms) parameters through the app.
 - [ ] Save measurements history.
