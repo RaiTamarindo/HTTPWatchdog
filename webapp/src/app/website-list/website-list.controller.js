@@ -1,8 +1,10 @@
 'use strict';
 
-var injectParams = ['$mdToast','websiteDataService'];
+var websiteFormComponent = require('../website-form/website-form.component');
 
-var WebsiteListController = function($mdToast, websiteDataService)
+var injectParams = ['$mdDialog', '$document','websiteDataService'];
+
+var WebsiteListController = function($mdDialog, $document, websiteDataService)
 {
     var vm  = this;
 
@@ -28,11 +30,6 @@ var WebsiteListController = function($mdToast, websiteDataService)
             {
                 websites.forEach(addWebsite);
             });
-    };
-
-    vm.addWebsite = function(website)
-    {
-        vm.websites.unshift(website);
     };
 
     vm.getSuccessfulResponsesSLI = function(website)
@@ -75,24 +72,37 @@ var WebsiteListController = function($mdToast, websiteDataService)
         return false;
     };
 
-    vm.addWebsite = function(website)
+    vm.editWebsite = function(website, $event)
     {
-        websiteDataService.create(website)
-            .then(function(websites)
+        $mdDialog
+            .show(
             {
-                var website = websites[0];
-                addWebsite(website);
-                $mdToast.show($mdToast.simple().textContent('Website url added!'));
-            }, function(reason)
-            {
-                $mdToast.show($mdToast.simple().textContent('Error to add website. ' + reason));
+                controller: ['$scope', '$mdDialog', 'website', function($scope, $mdDialog, website)
+                {
+                    $scope.website = website;
+
+                    $scope.saved = function(website)
+                    {
+                        $mdDialog.hide();
+                    };
+
+                    $scope.cancelled = function()
+                    {
+                        $mdDialog.hide();
+                    };
+                }],
+                template: '<website-form website="website" on-save="saved" on-cancel="cancelled"></website-form>',
+                parent: $document.body,
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                locals:
+                {
+                    website: website
+                }
             });
     };
 
-    vm.editWebsite = function(website)
-    {
-        //TODO
-    };
+    vm.addWebsite = addWebsite;
 
     vm.removeWebsite = function(website)
     {

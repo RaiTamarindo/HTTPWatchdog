@@ -6,7 +6,7 @@ module.exports =
     {
         if(value)
         {
-            return value.search(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) == 0;
+            return value.search(/(http|https):\/\/[\w-]+(\.[\w-]+)*([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/g) == 0;
         }
 
         return false;

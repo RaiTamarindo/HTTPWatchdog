@@ -23,7 +23,7 @@ function sendData(data)
 
 function doMeasure(website)
 {
-    var startTime = Date.now();
+    var startDate = Date.now();
     website.totalRequests++;
 
     try
@@ -31,33 +31,39 @@ function doMeasure(website)
         http
             .get(website.url, function(res)
             {
-                var responseTime = Date.now() - startTime,
-                    statusCode = res.statusCode;
-                
-                if(statusCode >= 200 && statusCode < 500)
+                website.lastResponseDate = Date.now();
+                website.lastResponseTime = website.lastResponseDate - startDate;
+                website.lastStatusCode = res.statusCode;
+                if(website.lastStatusCode >= 200 && website.lastStatusCode < 500)
                 {
                     website.successfulResponses++;
                 }
-                if(responseTime <= 100)
+                if(website.lastResponseTime <= 100)
                 {
                     website.fastResponses++;
                 }
-
+                
+                sendData(website);
+                websiteModel.modify(website._id, website);
                 sendText('[' + website.url + ']' +
                          ' successful responses: ' + website.successfulResponses +
                          ' fast responses: ' + website.fastResponses +
-                         ' (last: ' + responseTime + ' ms)' +
+                         ' (last: ' + website.lastResponseTime + ' ms)' +
                          ' total requests: ' + website.totalRequests);
-                sendData(website);
-                websiteModel.modify(website._id, website);
             })
             .on('error', function(e)
             {
+                website.lastStatusCode = -1;
+                sendData(website);
+                websiteModel.modify(website._id, website);
                 sendText(e.message);
             });
     }
     catch(e)
     {
+        website.lastStatusCode = -1;
+        sendData(website);
+        websiteModel.modify(website._id, website);
         sendText(e.message);
     }
 }

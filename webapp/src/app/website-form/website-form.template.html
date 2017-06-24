@@ -1,0 +1,37 @@
+<div class="form-wrapper md-whiteframe-1dp">
+    <form name="websiteForm" class="md-inline-form" ng-submit="$ctrl.save()" novalidate>
+        <div ng-if="$ctrl.website._id" class="form-title">Edit website URL</div>
+        <div ng-if="!$ctrl.website._id" class="form-title">New website URL</div>
+
+        <md-input-container class="md-block">
+            <label>URL</label>
+            <input ng-model="$ctrl.website.url" ng-pattern="/(http|https):\/\/[\w-]+(\.[\w-]+)*([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/" required>
+        </md-input-container>
+
+        <div layout="column" layout-gt-sm="row">
+
+            <md-input-container flex>
+                <label>% Success SLO</label>
+                <input ng-model="$ctrl.website.successfulResponsesSLO" type="number" required>
+            </md-input-container>
+
+            <md-input-container flex>
+                <label>% Fast SLO</label>
+                <input ng-model="$ctrl.website.fastResponsesSLO" type="number" required>
+            </md-input-container>
+
+        </div>
+
+        <md-button ng-if="$ctrl.website._id" type="submit" class="md-raised md-primary" aria-label="Save" ng-disabled="websiteForm.$invalid || websiteForm.$pristine">
+            Save
+        </md-button>
+
+        <md-button ng-if="!$ctrl.website._id" type="submit" class="md-raised md-primary" aria-label="Add" ng-disabled="websiteForm.$invalid || websiteForm.$pristine">
+            Add
+        </md-button>
+
+        <md-button ng-if="$ctrl.onCancel()" ng-click="$ctrl.onCancel()()" type="button" class="md-raised md-warn" aria-label="Cancel">
+            Cancel
+        </md-button>
+    </form>
+</div>
