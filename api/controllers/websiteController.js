@@ -135,7 +135,10 @@ module.exports =
             {
                 if(!err)
                 {
-                    res.locals.removedWebsiteId = id;
+                    res.locals.deletedWebsite =
+                    {
+                        _id: id
+                    };
                     res.status(200)
                         .json(
                         {

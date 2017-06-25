@@ -1,8 +1,8 @@
 'use strict';
 
-var injectParams = ['$q', '$http'];
+var injectParams = ['$q', '$http', 'socketService'];
 
-var WebsiteDataFactory = function($q, $http)
+var WebsiteDataFactory = function($q, $http, socketService)
 {
     var factory = {},
         baseUrl = '/rest/websites/';
@@ -97,6 +97,21 @@ var WebsiteDataFactory = function($q, $http)
         interceptHTTPPromise($http.delete(baseUrl + website._id.toString()), deferred);
 
         return deferred.promise;
+    };
+
+    factory.addCreateListener = function(listener)
+    {
+        socketService.on('website-create', listener);
+    };
+
+    factory.addUpdateListener = function(listener)
+    {
+        socketService.on('website-update', listener);
+    };
+
+    factory.addDeleteListener = function(listener)
+    {
+        socketService.on('website-delete', listener);
     };
 
     return factory;

@@ -25,9 +25,9 @@ module.exports =
     delete: function(req, res, next)
     {
 
-        if(res.locals.deletedWebsiteId)
+        if(res.locals.deletedWebsite)
         {
-            websiteEvent.emit('website-deleted', res.locals.deletedWebsiteId);
+            websiteEvent.emit('website-deleted', res.locals.deletedWebsite);
         }
         next();
     }

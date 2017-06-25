@@ -32,7 +32,7 @@ module.exports =
         {
             template: 'webapp/src/index.html',
             inject: 'body'
-        }),
+        })
     ],
     devtool: 'source-map',
 };

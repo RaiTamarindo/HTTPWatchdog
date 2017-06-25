@@ -18,10 +18,10 @@ module.exports = function(io)
         io.emit('website-update', updatedWebsite);
     };
 
-    var sendWebsiteDelete = function(removedWebsiteId)
+    var sendWebsiteDelete = function(removedWebsite)
     {
-        console.log('Socket: Sending delete website id.');
-        io.emit('website-delete', removedWebsiteId);
+        console.log('Socket: Sending delete website.');
+        io.emit('website-delete', removedWebsite);
     };
 
     factory.registerListeners = function()

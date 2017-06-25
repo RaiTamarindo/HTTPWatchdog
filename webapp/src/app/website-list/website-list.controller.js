@@ -8,7 +8,7 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
 {
     var vm  = this;
 
-    var addWebsite = function(website)
+    var computeSLI = function(website)
     {
         if(website.successfulResponses !== undefined && website.totalRequests)
         {
@@ -18,7 +18,65 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
         {
             website.fastResponsesSLI = Math.round(website.fastResponses * 1000 / website.totalRequests) / 10
         }
+    };
+
+    var addWebsite = function(website)
+    {
+        computeSLI(website);
         vm.websites.unshift(website);
+    };
+
+    var onCreate = function(websites)
+    {
+        for(var i = 0;i < websites.length;i++)
+        {
+            var websiteExists = false;
+            for(var j = 0;j < vm.websites.length;j++)
+            {
+                if(websites[i]._id == vm.websites[j]._id)
+                {
+                    websiteExists = true;
+                    break;
+                }
+            }
+            if(!websiteExists)
+            {
+                addWebsite(websites[i]);
+            }
+        }
+    };
+
+    var onUpdate = function(website)
+    {
+        for(var i = 0;i < vm.websites.length;i++)
+        {
+            if(website._id == vm.websites[i]._id)
+            {
+                vm.websites[i].url = website.url;
+                vm.websites[i].successfulResponses = website.successfulResponses;
+                vm.websites[i].successfulResponsesSLO = website.successfulResponsesSLO;
+                vm.websites[i].fastResponses = website.fastResponses;
+                vm.websites[i].fastResponsesSLO = website.fastResponsesSLO;
+                vm.websites[i].totalRequests = website.totalRequests;
+                vm.websites[i].lastResponseDate = website.lastResponseDate;
+                vm.websites[i].lastResponseTime = website.lastResponseTime;
+                vm.websites[i].lastStatusCode = website.lastStatusCode;
+                computeSLI(vm.websites[i]);
+                break;
+            }
+        }
+    };
+
+    var onDelete = function(website)
+    {
+        for(var i = 0;i < vm.websites.length;i++)
+        {
+            if(website._id == vm.websites[i]._id)
+            {
+                vm.websites.splice(i, 1);
+                break;
+            }
+        }
     };
 
     vm.websites = [];
@@ -29,6 +87,10 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
             .then(function(websites)
             {
                 websites.forEach(addWebsite);
+
+                websiteDataService.addCreateListener(onCreate);
+                websiteDataService.addUpdateListener(onUpdate);
+                websiteDataService.addDeleteListener(onDelete);
             });
     };
 
