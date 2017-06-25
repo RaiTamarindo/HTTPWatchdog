@@ -3,20 +3,20 @@ var childProcess = require('child_process'),
     express = require('express'),
     bodyParser = require('body-parser'),
     validator = require('express-validator'),
-    validators = require('./api/helpers/validators.js'),
+    validators = require('./api/helpers/validators'),
     app = express(),
     http = require('http').Server(app),
-    socket = require('socket.io')(http),
+    io = require('socket.io')(http),
     port = process.env.PORT || 3000,
-    routes = require('./api/routes.js');
+    routes = require('./api/routes');
 
 console.log('HTTP Watchdog');
 console.log('A website availability monitoring application.');
 console.log('');
 console.log('Running server...');
 
-// Socket connection
-socket.on('connection', function()
+// Socket client connection
+io.on('connection', function()
 {
     console.log('A client connected.');
 });
@@ -43,7 +43,7 @@ worker.on('message', function(msg)
     if(msg.data)
     {
         // Website update socket message
-        socket.emit('website-update', msg.data);
+        io.emit('website-update', msg.data);
     }
 });
 

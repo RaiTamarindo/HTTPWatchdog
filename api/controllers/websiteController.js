@@ -1,10 +1,10 @@
 'use strict';
 
-var websiteModel = require('../models/websiteModel.js');
+var websiteModel = require('../models/websiteModel');
 
 module.exports =
 {
-    list: function(req, res)
+    list: function(req, res, next)
     {
         websiteModel
             .findAll(function(err, websites)
@@ -25,10 +25,12 @@ module.exports =
                             message: err
                         });
                 }
+
+                next();
             });
     },
 
-    create: function(req, res)
+    create: function(req, res, next)
     {
         var website = req.body;
         websiteModel
@@ -51,10 +53,12 @@ module.exports =
                             message: err
                         });
                 }
+
+                next();
             });
     },
 
-    read: function(req, res)
+    read: function(req, res, next)
     {
         var id = req.params.id;
         websiteModel
@@ -87,10 +91,12 @@ module.exports =
                             message: err
                         });
                 }
+
+                next();
             });
     },
 
-    update: function(req, res)
+    update: function(req, res, next)
     {
         var id = req.params.id;
         var website = req.body;
@@ -114,10 +120,12 @@ module.exports =
                             message: err
                         });
                 }
+
+                next();
             });
     },
     
-    delete: function(req, res)
+    delete: function(req, res, next)
     {
         var id = req.params.id;
         websiteModel
@@ -129,6 +137,7 @@ module.exports =
                         .json(
                         {
                             message: 'Website removed!'
+                            //TODO Append deleted id in data
                         });
                 }
                 else
@@ -139,6 +148,8 @@ module.exports =
                             message: err
                         });
                 }
+
+                next();
             });
     }
 };
