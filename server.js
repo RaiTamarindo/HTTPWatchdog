@@ -5,6 +5,8 @@ var childProcess = require('child_process'),
     validator = require('express-validator'),
     validators = require('./api/helpers/validators.js'),
     app = express(),
+    http = require('http').Server(app),
+    socket = require('socket.io')(http),
     port = process.env.PORT || 3000,
     routes = require('./api/routes.js');
 
@@ -12,6 +14,12 @@ console.log('HTTP Watchdog');
 console.log('A website availability monitoring application.');
 console.log('');
 console.log('Running server...');
+
+// Socket connection
+socket.on('connection', function()
+{
+    console.log('A client connected.');
+});
 
 // Worker thread
 worker.on('error', function(err)
@@ -34,21 +42,20 @@ worker.on('message', function(msg)
     }
     if(msg.data)
     {
-        //TODO: Emit socket event
-
+        // Website update socket message
+        socket.emit('website-update', msg.data);
     }
 });
 
 // Webapp
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json());
-app.use(validator({customValidators:validators}));
 
 // REST API
+app.use(bodyParser.json());
+app.use(validator({customValidators:validators}));
 routes(app);
 
 app.listen(port, function()
 {
     console.log('Listening at port ' + port);
 });
-
