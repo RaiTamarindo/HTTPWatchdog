@@ -7,6 +7,7 @@ var childProcess = require('child_process'),
     app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
+    socket = require('./socket')(io),
     port = process.env.PORT || 3000,
     routes = require('./api/routes');
 
@@ -19,6 +20,7 @@ console.log('Running server...');
 io.on('connection', function()
 {
     console.log('A client connected.');
+    socket.registerListeners();
 });
 
 // Worker thread
@@ -42,8 +44,7 @@ worker.on('message', function(msg)
     }
     if(msg.data)
     {
-        // Website update socket message
-        io.emit('website-update', msg.data);
+        socket.sendWebsiteUpdate(msg.data);
     }
 });
 

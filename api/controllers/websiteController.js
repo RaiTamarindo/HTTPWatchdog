@@ -38,10 +38,11 @@ module.exports =
             {
                 if(!err)
                 {
+                    res.locals.createdWebsites = result.ops;
                     res.status(201)
                         .json(
                         {
-                            message: 'Website created!',
+                            message: 'Website(s) created!',
                             data: result.ops
                         });
                 }
@@ -105,11 +106,12 @@ module.exports =
             {
                 if(!err)
                 {
+                    res.locals.updatedWebsite = result.ops[0];
                     res.status(200)
                         .json(
                         {
                             message: 'Website updated!',
-                            data: result.ops
+                            data: result.ops[0]
                         });
                 }
                 else
@@ -133,11 +135,11 @@ module.exports =
             {
                 if(!err)
                 {
+                    res.locals.removedWebsiteId = id;
                     res.status(200)
                         .json(
                         {
                             message: 'Website removed!'
-                            //TODO Append deleted id in data
                         });
                 }
                 else

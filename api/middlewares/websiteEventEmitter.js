@@ -1,22 +1,34 @@
 'use strict';
 
+var websiteEvent = require('../events/websiteEvent');
+
 module.exports =
 {
     create: function(req, res, next)
     {
-        // TODO: Verify res content to find last created resources and trigger website-created event
+        if(res.locals.createdWebsites)
+        {
+            websiteEvent.emit('website-created', res.locals.createdWebsites);
+        }
         next();
     },
 
     update: function(req, res, next)
     {
-        // TODO: Verify res content to find last updated resources and trigger website-updated event
+        if(res.locals.updatedWebsite)
+        {
+            websiteEvent.emit('website-updated', res.locals.updatedWebsite);
+        }
         next();
     },
 
     delete: function(req, res, next)
     {
-        // TODO: Verify res content to find last deleted website and trigger website-deleted event
+
+        if(res.locals.deletedWebsiteId)
+        {
+            websiteEvent.emit('website-deleted', res.locals.deletedWebsiteId);
+        }
         next();
     }
-}
+};
