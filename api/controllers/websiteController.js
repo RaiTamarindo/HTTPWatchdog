@@ -106,12 +106,12 @@ module.exports =
             {
                 if(!err)
                 {
-                    res.locals.updatedWebsite = result.ops[0];
+                    res.locals.updatedWebsite = result.ops;
                     res.status(200)
                         .json(
                         {
                             message: 'Website updated!',
-                            data: result.ops[0]
+                            data: result.ops
                         });
                 }
                 else

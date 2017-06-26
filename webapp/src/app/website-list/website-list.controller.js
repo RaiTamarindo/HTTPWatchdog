@@ -8,6 +8,56 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
 {
     var vm  = this;
 
+    vm.websites = [];
+
+    vm.responseTimeChart =
+    {
+        config:
+        {
+            refreshDataOnly: true,
+            deepWatchData  : true
+        },
+        options:
+        {
+            chart:
+            {
+                type: 'lineChart',
+                color: ['rgba(0, 0, 0, 0.27)'],
+                height: 50,
+                margin:
+                {
+                    top: 8,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },
+                duration: 1,
+                clipEdge: true,
+                interpolate: 'cardinal',
+                interactive: false,
+                isArea: true,
+                showLegend: false,
+                showControls: false,
+                showXAxis: false,
+                showYAxis: false,
+                x: function (d)
+                {
+                    return d.x;
+                },
+                y: function (d)
+                {
+                    return d.y;
+                },
+                yDomain     : [0, 4]
+            }
+        },
+        data:
+        [{
+            key: 'Response time',
+            values: new Array(25)
+        }]
+    };
+
     var computeSLI = function(website)
     {
         if(website.successfulResponses !== undefined && website.totalRequests)
@@ -18,6 +68,22 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
         {
             website.fastResponsesSLI = Math.round(website.fastResponses * 1000 / website.totalRequests) / 10
         }
+
+        if(!website.responseTimeChart)
+        {
+            website.responseTimeChart =
+            {
+                data: angular.copy(vm.responseTimeChart.data)
+            };
+        }
+
+        website.responseTimeChart.data[0].values.shift();
+        website.responseTimeChart.data[0].values
+            .push(
+            {
+                x: website.lastResponseDate,
+                y: website.lastResponseTime
+            });
     };
 
     var addWebsite = function(website)
@@ -79,8 +145,6 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
         }
     };
 
-    vm.websites = [];
-
     vm.$onInit = function()
     {
         websiteDataService.list()
@@ -141,7 +205,7 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
             {
                 controller: ['$scope', '$mdDialog', 'website', function($scope, $mdDialog, website)
                 {
-                    $scope.website = website;
+                    $scope.website = angular.copy(website);
 
                     $scope.saved = function(website)
                     {
