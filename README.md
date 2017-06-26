@@ -49,3 +49,4 @@ The web application is a SPA (single-page application) developed with AngularJS,
 - [ ] Save measurements history.
 - [ ] Add another HTTP methods.
 - [ ] Set HTTP headers through the app.
+
