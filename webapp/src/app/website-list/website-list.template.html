@@ -47,20 +47,33 @@
 
                 </div>
 
-                <div class="pt-8 pb-32" layout="column" layout-align="center center">
-                    <div class="font-size-72 line-height-72"
-                        ng-class="{'light-blue-fg': $ctrl.isSuccessfulSLIOK(website), 'red-fg': !$ctrl.isSuccessfulSLIOK(website)}">
-                        {{$ctrl.getSuccessfulResponsesSLI(website)}}
-                    </div>
-                    <div class="h3 secondary-text font-weight-500">SUCCESSFUL</div>
-                </div>
                 
-                <div class="pt-8 pb-32" layout="column" layout-align="center center">
-                    <div class="font-size-72 line-height-72"
-                        ng-class="{'light-blue-fg': $ctrl.isFastSLIOK(website), 'red-fg': !$ctrl.isFastSLIOK(website)}">
-                        {{$ctrl.getFastResponsesSLI(website)}}
+                <div layout="row" layout-align="center center">
+                    <div class="pt-8 pb-32" layout="column" layout-align="center center">
+                        <div class="font-size-72 line-height-72"
+                            ng-class="{'light-blue-fg': $ctrl.isSuccessfulSLIOK(website), 'red-fg': !$ctrl.isSuccessfulSLIOK(website)}">
+                            {{$ctrl.getSuccessfulResponsesSLI(website)}}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">SUCCESSFUL</div>
                     </div>
-                    <div class="h3 secondary-text font-weight-500">FAST</div>
+                    <div class="pt-8 pb-32" layout="column" layout-align="center center">
+                        <div class="h3 secondary-text">LAST STATUS:</div>
+                        <div class="h1">{{website.lastStatusCode}}</div>
+                    </div>
+                </div>
+                        
+                <div layout="row" layout-align="center center">
+                    <div class="pt-8 pb-32" layout="column" layout-align="center center">
+                        <div class="font-size-72 line-height-72"
+                            ng-class="{'light-blue-fg': $ctrl.isFastSLIOK(website), 'red-fg': !$ctrl.isFastSLIOK(website)}">
+                            {{$ctrl.getFastResponsesSLI(website)}}
+                        </div>
+                        <div class="h3 secondary-text font-weight-500">FAST</div>
+                    </div>
+                    <div class="pt-8 pb-32" layout="column" layout-align="center center">
+                        <div class="h3 secondary-text">LAST RESPONSE:</div>
+                        <div class="h1">{{website.lastResponseTime}} ms</div>
+                    </div>
                 </div>
 
                 <div class="p-16 grey-50-bg border-top" layout="row" layout-align="start center">
