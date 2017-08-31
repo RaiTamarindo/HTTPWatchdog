@@ -22,4 +22,4 @@ app
     .factory('websiteDataService', websiteDataService)
     .component('home', homeComponent)
     .component('websiteList', websiteListComponent)
-    .component('websiteForm', websiteFormComponent);;
+    .component('websiteForm', websiteFormComponent);
