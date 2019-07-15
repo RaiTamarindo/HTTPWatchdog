@@ -1,4 +1,5 @@
 var websiteModel = require('./api/models/websiteModel.js'),
+    https = require('https'),
     http = require('http');
 
 const SAMPLE_TIME = 5000;
@@ -28,7 +29,8 @@ function doMeasure(website)
 
     try
     {
-        http
+        const httpClient = website.url.startsWith('https://') ? https : http;
+        httpClient
             .get(website.url, function(res)
             {
                 website.lastResponseDate = Date.now();
@@ -38,7 +40,7 @@ function doMeasure(website)
                 {
                     website.successfulResponses++;
                 }
-                if(website.lastResponseTime <= 100)
+                if(website.lastResponseTime <= 400)
                 {
                     website.fastResponses++;
                 }
