@@ -2,7 +2,7 @@ var websiteModel = require('./api/models/websiteModel.js'),
     https = require('https'),
     http = require('http');
 
-const SAMPLE_TIME = 5000;
+const SAMPLE_TIME = 2000;
 
 function sendText(text) {
     process.send({ text: text });
