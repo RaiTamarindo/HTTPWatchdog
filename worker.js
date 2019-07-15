@@ -49,7 +49,7 @@ function doMeasure(website)
                     website.lastResponseTime = getDuration(now, timings.tlsHandshakeAt || timings.tcpConnectionAt);
 
                     website.lastStatusCode = res.statusCode;
-                    if(website.lastStatusCode >= 200 && website.lastStatusCode < 500)
+                    if(website.lastStatusCode >= 200 && website.lastStatusCode < 300)
                     {
                         website.successfulResponses++;
                     }
