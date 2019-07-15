@@ -134,6 +134,14 @@ img {
     }
 }
 
+.ellipsis {
+    text-overflow: ellipsis;
+  
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
 // Padding helpers
 // Multiples of 5, max:100
 @for $i from 0 through 20 {
