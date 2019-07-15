@@ -20,6 +20,16 @@
                 <input ng-model="$ctrl.website.fastResponsesSLO" type="number" required>
             </md-input-container>
 
+            <md-input-container flex>
+                <label>Auth user</label>
+                <input ng-model="$ctrl.website.username" type="text">
+            </md-input-container>
+
+            <md-input-container flex>
+                <label>Auth password</label>
+                <input ng-model="$ctrl.website.password" type="password">
+            </md-input-container>
+
         </div>
 
         <md-button ng-if="$ctrl.website._id" type="submit" class="md-raised md-primary" aria-label="Save" ng-disabled="websiteForm.$invalid || websiteForm.$pristine">

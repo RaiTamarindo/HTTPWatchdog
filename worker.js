@@ -2,7 +2,7 @@ var websiteModel = require('./api/models/websiteModel.js'),
     https = require('https'),
     http = require('http');
 
-const SAMPLE_TIME = 5000;
+const SAMPLE_TIME = 10000;
 
 function sendText(text)
 {
@@ -24,14 +24,18 @@ function sendData(data)
 
 function doMeasure(website)
 {
-    var startDate = Date.now();
     website.totalRequests++;
-
+    
     try
     {
-        const httpClient = website.url.startsWith('https://') ? https : http;
+        const httpClient = website.url.startsWith('https:') ? https : http;
+        const options = { };
+        if (website.username) {
+            options.auth = `${website.username}:${website.password}`;
+        }
+        const startDate = Date.now();
         httpClient
-            .get(website.url, function(res)
+            .get(website.url, options, function(res)
             {
                 website.lastResponseDate = Date.now();
                 website.lastResponseTime = website.lastResponseDate - startDate;
