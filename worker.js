@@ -3,6 +3,7 @@ var websiteModel = require('./api/models/websiteModel.js'),
     http = require('http');
 
 const SAMPLE_TIME = 2000;
+const MAX_SAMPLES = 1800; // last hour
 
 function sendText(text) {
     process.send({ text: text });
@@ -20,9 +21,7 @@ function getDuration(t1, t0) {
     return t1[0]*1000 + t1[1]/1000000 - t0[0]*1000 - t0[1]/1000000;
 }
 
-function doMeasure(website)
-{
-    website.totalRequests++;
+function doMeasure(website) {
     
     try
     {
@@ -49,22 +48,41 @@ function doMeasure(website)
                     website.lastResponseTime = getDuration(now, timings.tlsHandshakeAt || timings.tcpConnectionAt);
 
                     website.lastStatusCode = res.statusCode;
-                    if(website.lastStatusCode >= 200 && website.lastStatusCode < 300)
-                    {
+                    if(website.lastStatusCode >= 200 && website.lastStatusCode < 300) {
                         website.successfulResponses++;
                     }
-                    if(website.lastResponseTime <= 200)
-                    {
+                    if(website.lastResponseTime <= 200) {
                         website.fastResponses++;
                     }
+
+                    if (!website.responses) {
+                        website.responses = [];
+                    }
+                    website.responses.push({
+                        status: website.lastStatusCode,
+                        time: website.lastResponseTime,
+                        timestamp: website.lastResponseDate
+                    });
+                    if (website.responses.length > MAX_SAMPLES) {
+                        const removed = website.responses.shift();
+                        if(removed.status >= 200 && removed.status < 300) {
+                            website.successfulResponses--;
+                        }
+                        if(removed.time <= 200) {
+                            website.fastResponses--;
+                        }
+                    }
+                    website.totalRequests = website.responses.length;
                     
                     sendData(website);
                     websiteModel.modify(website._id, website);
-                    sendText('[' + website.url + ']' +
-                             ' successful responses: ' + website.successfulResponses +
-                             ' fast responses: ' + website.fastResponses +
-                             ' (last: ' + website.lastResponseTime + ' ms)' +
-                             ' total requests: ' + website.totalRequests);
+                    sendText(`
+                    [${website.url}]
+                    successful responses: ${website.successfulResponses}
+                    fast responses: ${website.fastResponses}
+                    (last: ${website.lastResponseTime} ms)
+                    total requests: ${website.totalRequests}
+                    `);
                 })
             });
         req.on('socket', (socket) => {
@@ -82,9 +100,7 @@ function doMeasure(website)
             sendText(e.message);
         });
         req.end();
-    }
-    catch(e)
-    {
+    } catch(e) {
         website.lastStatusCode = -1;
         sendData(website);
         websiteModel.modify(website._id, website);
@@ -92,28 +108,21 @@ function doMeasure(website)
     }
 }
 
-function getMeasures(websites)
-{
-    if(websites.length > 0)
-    {
-        var now = new Date();
+function getMeasures(websites) {
+    if(websites.length > 0) {
+        const now = new Date();
         sendText('[' + now.toUTCString() + '] Measuring data from ' + websites.length + ' websites.');
 
         websites.forEach(doMeasure);
-    }
-    else
-    {
+    } else {
         sendText('There are no websites to watch.');
     }
 }
 
-function loop()
-{
+function loop() {
     websiteModel
-        .findAll(function(err, websites)
-        {
-            if(!err)
-            {
+        .findAll((err, websites) => {
+            if(!err) {
                 getMeasures(websites);
             }
         });

@@ -212,6 +212,7 @@ var WebsiteListController = function($mdDialog, $mdToast, $document, websiteData
         website.successfulResponses = 0;
         website.fastResponses = 0;
         website.totalRequests = 0;
+        website.responses = [];
         delete website.successfulResponsesSLI;
         delete website.fastResponsesSLI;
         delete website.lastResponseDate;
