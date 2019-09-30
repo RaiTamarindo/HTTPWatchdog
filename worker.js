@@ -32,8 +32,13 @@ function doMeasure(website) {
             host: url.host,
             path: url.pathname,
         };
-        if (!!website.username) {
+        if (website.schema === 'Basic' && !!website.username) {
             options.auth = `${website.username}:${website.password}`;
+        }
+        if (website.schema === 'Bearer' && !!website.token) {
+            options.headers = {
+                'Authorization': `Bearer ${website.token}`
+            };
         }
         const timings = {
             tcpConnectionAt: undefined,

@@ -22,15 +22,28 @@
         </div>
 
         <div layout="column" layout-gt-sm="row">
+
+            <md-input-container flex="33">
+                <label>Auth schema</label>
+                <md-select ng-model="$ctrl.website.schema">
+                    <md-option selected value="Basic">Basic</md-option>
+                    <md-option value="Bearer">Bearer</md-option>
+                </md-select>
+            </md-input-container>
             
-            <md-input-container flex>
+            <md-input-container flex="33" ng-if="$ctrl.website.schema == 'Basic'">
                 <label>Auth user</label>
                 <input ng-model="$ctrl.website.username" type="text">
             </md-input-container>
 
-            <md-input-container flex>
+            <md-input-container flex="33" ng-if="$ctrl.website.schema == 'Basic'">
                 <label>Auth password</label>
                 <input ng-model="$ctrl.website.password" type="password">
+            </md-input-container>
+
+            <md-input-container flex="66" ng-if="$ctrl.website.schema == 'Bearer'">
+                <label>Token</label>
+                <input ng-model="$ctrl.website.token" type="text">
             </md-input-container>
 
         </div>
